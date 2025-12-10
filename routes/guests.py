@@ -5,6 +5,7 @@ from database import get_db
 from models.guests import Guest
 from schemas.guests import GuestCreate, GuestUpdate, GuestResponse
 from auth import CurrentUser
+from logger import logger
 
 router = APIRouter(
     prefix="/guests",
@@ -37,6 +38,7 @@ def create_guest(
     db.add(db_guest)
     db.commit()
     db.refresh(db_guest)
+    logger.info(f"guest created with name {db_guest.first_name}")
     return db_guest
 
 @router.get("/", response_model=List[GuestResponse])

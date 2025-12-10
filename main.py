@@ -1,12 +1,8 @@
 from fastapi import FastAPI
-
 from config import settings
-from database import init_db
-
 from routes import rooms, guests, reservations
-
 from fastapi.openapi.utils import get_openapi
-
+from logger import logger
 
 app = FastAPI(
     title=settings.app_name,
@@ -67,6 +63,7 @@ def read_root():
 
 @app.get("/health")
 def health_check():
+    logger.info("Health Check endpoint called")
     return {"status": "healthy"}
 
 
