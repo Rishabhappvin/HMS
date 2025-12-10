@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from database import Base
-from datetime import datetime
 import enum
 
 class ReservationStatus(enum.Enum):
@@ -23,8 +22,9 @@ class Reservation(Base):
     total_price = Column(Float, nullable=False)
     number_of_guests = Column(Integer, default=1)
     special_requests = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = Column(DateTime, default=None)
+    created_at = Column(DateTime, default=None)
+    deleted_at = Column(DateTime, default=None)
     
     # Relationships
     guest = relationship("Guest", back_populates="reservations")

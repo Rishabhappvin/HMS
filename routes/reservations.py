@@ -225,7 +225,7 @@ def delete_reservation(
     if not active_reservations:
         room.status = RoomStatus.AVAILABLE
     
-    db.delete(db_reservation)
+    db_reservation.deleted_at = datetime.now()
     db.commit()
     return None
 

@@ -5,6 +5,7 @@ from database import get_db
 from models.rooms import Room, RoomStatus
 from schemas.rooms import RoomCreate, RoomUpdate, RoomResponse
 from auth import CurrentUser
+from datetime import datetime
 
 router = APIRouter(
     prefix="/rooms",
@@ -104,7 +105,7 @@ def delete_room(
             detail="Room not found"
         )
     
-    db.delete(db_room)
+    db_room.deleted_at = datetime.now()
     db.commit()
     return None
 

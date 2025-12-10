@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from database import Base
-from datetime import datetime
+
 
 class Guest(Base):
     __tablename__ = "guests"
@@ -13,7 +13,8 @@ class Guest(Base):
     phone = Column(String, nullable=False)
     address = Column(String, nullable=True)
     id_number = Column(String, unique=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=None)
+    deleted_at = Column(DateTime, default=None)
     
     # Relationship
     reservations = relationship("Reservation", back_populates="guest")

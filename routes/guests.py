@@ -5,6 +5,7 @@ from database import get_db
 from models.guests import Guest
 from schemas.guests import GuestCreate, GuestUpdate, GuestResponse
 from auth import CurrentUser
+from datetime import datetime
 from logger import logger
 
 router = APIRouter(
@@ -144,7 +145,5 @@ def delete_guest(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot delete guest with existing reservations"
         )
-    
-    db.delete(db_guest)
-    db.commit()
+    db_guest.deleted_at = datetime.now()
     return None

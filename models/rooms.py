@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, Float, Enum
+from sqlalchemy import Column, Integer, String, Float, Enum , DateTime
 from sqlalchemy.orm import relationship
 from database import Base
 import enum
+
 
 class RoomStatus(enum.Enum):
     AVAILABLE = "available"
@@ -26,6 +27,8 @@ class Room(Base):
     floor = Column(Integer)
     capacity = Column(Integer, default=1)
     description = Column(String, nullable=True)
+    created_at = Column(DateTime, default=None)
+    deleted_at = Column(DateTime, default=None)
     
     # Relationship
     reservations = relationship("Reservation", back_populates="room")
